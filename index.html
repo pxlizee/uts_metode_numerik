@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Metode Numerik</title>
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+
+<body>
+
+    <main>
+        <h1>Kalkulator Metode Numerik</h1>
+
+        <nav class="nav-menu">
+            <button class="nav-button active" data-target="biseksi-page">Biseksi</button>
+            <button class="nav-button" data-target="regula-falsi-page">Regula Falsi</button>
+            <button class="nav-button" data-target="newton-raphson-page">Newton-Raphson</button>
+            <button class="nav-button" data-target="secant-page">Secant</button>
+            <button class="nav-button" data-target="gauss-seidel-page">Gauss-Seidel</button>
+            <button class="nav-button" data-target="maclaurin-page">Deret Maclaurin</button>
+        </nav>
+
+        <section id="biseksi-page" class="metode-container active">
+            <h2>Metode Biseksi</h2>
+            <p class="deskripsi">
+                Metode Biseksi adalah metode pencarian akar tertutup yang paling sederhana. Metode ini bekerja dengan
+                membagi interval $[a, b]$ menjadi dua bagian sama besar, lalu memilih sub-interval mana yang mengandung
+                akar (berdasarkan perubahan tanda $f(a)$ dan $f(b)$) untuk iterasi selanjutnya.
+            </p>
+            <div class="rumus-display">
+                $$ c = \frac{a + b}{2} $$
+            </div>
+
+            <div class="input-grup">
+                <label for="biseksi-fungsi">Fungsi f(x):</label>
+                <input type="text" id="biseksi-fungsi" placeholder="cth: x^3 - x - 2">
+            </div>
+            <div class="input-grup">
+                <label for="biseksi-a">Batas Bawah (a):</label>
+                <input type="number" id="biseksi-a" value="1">
+            </div>
+            <div class="input-grup">
+                <label for="biseksi-b">Batas Atas (b):</label>
+                <input type="number" id="biseksi-b" value="2">
+            </div>
+            <div class="input-grup">
+                <label for="biseksi-epsilon">Toleransi (ε):</label>
+                <input type="number" id="biseksi-epsilon" value="0.0001">
+            </div>
+            <button id="hitung-biseksi">Hitung</button>
+            <div id="hasil-biseksi" class="hasil-container"></div>
+        </section>
+
+        <section id="regula-falsi-page" class="metode-container">
+            <h2>Metode Regula Falsi</h2>
+            <p class="deskripsi">
+                Metode Regula Falsi (Posisi Palsu) mirip dengan Biseksi, tetapi lebih cerdas. Alih-alih membagi interval
+                di tengah, metode ini menggambar garis lurus (interpolasi linier) antara titik $(a, f(a))$ dan $(b,
+                f(b))$ dan menggunakan titik potong garis tersebut dengan sumbu-x sebagai tebakan akar $c$ selanjutnya.
+            </p>
+            <div class="rumus-display">
+                $$ c = \frac{f(b) \cdot a - f(a) \cdot b}{f(b) - f(a)} $$
+            </div>
+            <div class="input-grup">
+                <label for="regula-fungsi">Fungsi f(x):</label>
+                <input type="text" id="regula-fungsi" placeholder="cth: x^3 - x - 2">
+            </div>
+            <div class="input-grup">
+                <label for="regula-a">Batas Bawah (a):</label>
+                <input type="number" id="regula-a" value="1">
+            </div>
+            <div class="input-grup">
+                <label for="regula-b">Batas Atas (b):</label>
+                <input type="number" id="regula-b" value="2">
+            </div>
+            <div class="input-grup">
+                <label for="regula-epsilon">Toleransi (ε):</label>
+                <input type="number" id="regula-epsilon" value="0.0001">
+            </div>
+            <button id="hitung-regula">Hitung</button>
+            <div id="hasil-regula" class="hasil-container"></div>
+        </section>
+
+        <section id="newton-raphson-page" class="metode-container">
+            <h2>Metode Newton-Raphson</h2>
+            <p class="deskripsi">
+                Metode terbuka yang sangat cepat dan populer. Metode ini menggunakan tebakan awal $x_i$ dan menghitung
+                garis singgung (turunan $f'(x_i)$) di titik tersebut. Titik di mana garis singgung memotong sumbu-x akan
+                menjadi tebakan selanjutnya $x_{i+1}$. Metode ini memerlukan turunan pertama dari fungsi.
+            </p>
+            <div class="rumus-display">
+                $$ x_{i+1} = x_i - \frac{f(x_i)}{f'(x_i)} $$
+            </div>
+            <div class="input-grup">
+                <label for="nr-fungsi">Fungsi f(x):</label>
+                <input type="text" id="nr-fungsi" placeholder="cth: x^2 - 4">
+            </div>
+            <div class="input-grup">
+                <label for="nr-x0">Tebakan Awal (x₀):</label>
+                <input type="number" id="nr-x0" value="1">
+            </div>
+            <div class="input-grup">
+                <label for="nr-epsilon">Toleransi (ε):</label>
+                <input type="number" id="nr-epsilon" value="0.0001">
+            </div>
+            <button id="hitung-nr">Hitung</button>
+            <div id="hasil-nr" class="hasil-container"></div>
+        </section>
+
+        <section id="secant-page" class="metode-container">
+            <h2>Metode Secant</h2>
+            <p class="deskripsi">
+                Metode Secant adalah alternatif dari Newton-Raphson ketika turunan $f'(x)$ sulit dihitung. Metode ini
+                mengaproksimasi turunan dengan menggunakan garis sekan (garis yang memotong dua titik, $x_i$ dan
+                $x_{i-1}$) sebagai gantinya. Metode ini memerlukan dua tebakan awal.
+            </p>
+            <div class="rumus-display">
+                $$ x_{i+1} = x_i - \frac{f(x_i)(x_i - x_{i-1})}{f(x_i) - f(x_{i-1})} $$
+            </div>
+            <div class="input-grup">
+                <label for="secant-fungsi">Fungsi f(x):</label>
+                <input type="text" id="secant-fungsi" placeholder="cth: x^2 - 4">
+            </div>
+            <div class="input-grup">
+                <label for="secant-x0">Tebakan Awal (x₀):</label>
+                <input type="number" id="secant-x0" value="1">
+            </div>
+            <div class="input-grup">
+                <label for="secant-x1">Tebakan Awal (x₁):</label>
+                <input type="number" id="secant-x1" value="2">
+            </div>
+            <div class="input-grup">
+                <label for="secant-epsilon">Toleransi (ε):</label>
+                <input type="number" id="secant-epsilon" value="0.0001">
+            </div>
+            <button id="hitung-secant">Hitung</button>
+            <div id="hasil-secant" class="hasil-container"></div>
+        </section>
+
+        <section id="gauss-seidel-page" class="metode-container">
+            <h2>Iterasi Gauss-Seidel</h2>
+            <p class="deskripsi">
+                Metode iteratif untuk menyelesaikan Sistem Persamaan Linier [A][x] = [b]. Berbeda dengan metode Jacobi,
+                Gauss-Seidel langsung menggunakan nilai variabel $x_j$ yang baru dihitung dalam iterasi yang sama untuk
+                menghitung variabel $x_{i}$ berikutnya. Ini seringkali mempercepat konvergensi.
+            </p>
+            <div class="rumus-display">
+                $$ x_i^{(k)} = \frac{1}{a_{ii}} \left( b_i - \sum_{j=1}^{i-1} a_{ij}x_j^{(k)} - \sum_{j=i+1}^{n}
+                a_{ij}x_j^{(k-1)} \right) $$
+            </div>
+            <div class="input-grup">
+                <label for="gs-matrix-a">Matriks Koefisien (A):</label>
+                <textarea id="gs-matrix-a" rows="4"
+                    placeholder="Gunakan format JSON, cth: [[4, -1, 1], [-1, 4, -2], [1, -2, 4]]"></textarea>
+            </div>
+            <div class="input-grup">
+                <label for="gs-vector-b">Vektor Hasil (b):</label>
+                <textarea id="gs-vector-b" rows="2" placeholder="Gunakan format JSON, cth: [12, -1, 5]"></textarea>
+            </div>
+            <div class="input-grup">
+                <label for="gs-epsilon">Toleransi (ε):</label>
+                <input type="number" id="gs-epsilon" value="0.0001">
+            </div>
+            <button id="hitung-gs">Hitung</button>
+            <div id="hasil-gs" class="hasil-container"></div>
+        </section>
+
+        <section id="maclaurin-page" class="metode-container">
+            <h2>Aproksimasi Deret Maclaurin</h2>
+            <p class="deskripsi">
+                Deret Maclaurin adalah kasus khusus dari Deret Taylor, di mana aproksimasi (perkiraan) nilai fungsi
+                $f(x)$ dilakukan di sekitar titik $x=0$. Fungsi diekspansi menjadi jumlah polinomial tak hingga yang
+                didasarkan pada turunan-turunan fungsi tersebut di titik nol.
+            </p>
+            <div class="rumus-display">
+                $$ f(x) \approx \sum_{n=0}^{N} \frac{f^{(n)}(0)}{n!} x^n $$
+            </div>
+            <div class="input-grup">
+                <label for="mac-fungsi">Fungsi f(x):</label>
+                <input type="text" id="mac-fungsi" placeholder="cth: exp(x) atau sin(x)">
+            </div>
+            <div class="input-grup">
+                <label for="mac-x">Nilai x yang diaproksimasi:</label>
+                <input type="number" id="mac-x" value="1">
+            </div>
+            <div class="input-grup">
+                <label for="mac-n">Jumlah Suku (N):</label>
+                <input type="number" id="mac-n" value="10">
+            </div>
+            <button id="hitung-mac">Hitung</button>
+            <div id="hasil-mac" class="hasil-container"></div>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.3/math.min.js"></script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

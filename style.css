@@ -1,0 +1,211 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+main {
+    width: 100%;
+    max-width: 650px;
+    background-color: #ffffff;
+    padding: 25px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+h1 {
+    text-align: center;
+    color: #2a2f4a;
+    margin-top: 0;
+}
+
+h2 {
+    text-align: left;
+    color: #0056b3;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 5px;
+}
+
+p {
+    font-size: 15px;
+    color: #555;
+}
+
+/* ========================================
+ * GAYA NAVIGASI TAB
+ * ======================================== */
+
+.nav-menu {
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 25px;
+}
+
+.nav-button {
+    flex-grow: 1;
+    padding: 10px 12px;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    border-radius: 0;
+    margin: 0;
+    width: auto;
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+    transition: background-color 0.2s, color 0.2s;
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+}
+
+.nav-button:last-child {
+    border-right: 1px solid #ddd;
+}
+
+.nav-button:hover {
+    background-color: #e0e0e0;
+}
+
+.nav-button.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.metode-container {
+    display: none;
+}
+
+.metode-container.active {
+    display: block;
+}
+
+/* ========================================
+ * GAYA FORMULIR
+ * ======================================== */
+
+.input-grup {
+    margin-bottom: 15px;
+}
+
+.input-grup label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.input-grup input,
+.input-grup textarea {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    /* Ini penting */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: Consolas, 'Courier New', monospace;
+    font-size: 15px;
+}
+
+.input-grup textarea {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    resize: vertical;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* ========================================
+ * GAYA HASIL
+ * ======================================== */
+
+.hasil-container {
+    margin-top: 25px;
+    border-top: 2px solid #eee;
+    padding-top: 20px;
+    overflow-x: auto;
+    /* Agar tabel bisa di-scroll di HP */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    font-size: 14px;
+}
+
+th {
+    background-color: #f7f7f7;
+    font-weight: 600;
+}
+
+/* Memberi warna merah pada pesan error */
+.error-message {
+    color: #D8000C;
+    background-color: #FFD2D2;
+    border: 1px solid #D8000C;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.final-result {
+    font-size: 18px;
+    font-weight: 600;
+    color: #0056b3;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #f0f8ff;
+    border-radius: 4px;
+}
+
+/* ========================================
+ * GAYA BARU UNTUK RUMUS
+ * ======================================== */
+
+.deskripsi {
+    font-size: 15px;
+    color: #333;
+    line-height: 1.6;
+}
+
+.rumus-display {
+    font-size: 1.1em;
+    /* Sedikit lebih besar */
+    font-family: 'Times New Roman', Times, serif;
+    /* Font matematis */
+    text-align: center;
+    padding: 15px;
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 20px 0;
+    overflow-x: auto;
+    /* Agar rumus kompleks bisa di-scroll */
+}
