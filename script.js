@@ -1,3 +1,32 @@
+// --- FUNGSI BARU UNTUK FORMAT RUPIAH ---
+function formatRupiah(angka) {
+    // 1. Hapus semua karakter selain angka
+    let number_string = angka.replace(/[^,\d]/g, '').toString();
+
+    // 2. Hapus titik-titik lama (jika ada) untuk menghindari format ganda
+    number_string = number_string.replace(/\./g, '');
+
+    // 3. Tambahkan titik sebagai pemisah ribuan
+    //    Regex ini mencari batas di mana ada kelipatan 3 digit di belakangnya
+    return number_string.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
+// --- TAMBAHAN: Event listener untuk memformat input secara live ---
+// Kita ambil elemen inputnya dulu
+const inputPinjaman = document.getElementById("pinjaman");
+const inputCicilan = document.getElementById("cicilan");
+
+// Tambahkan listener 'input' ke elemen "Jumlah Pinjaman"
+inputPinjaman.addEventListener('input', function (e) {
+    this.value = formatRupiah(this.value);
+});
+
+// Tambahkan listener 'input' ke elemen "Cicilan per Bulan"
+inputCicilan.addEventListener('input', function (e) {
+    this.value = formatRupiah(this.value);
+});
+
+
 // --- FUNGSI HELPER (Tidak berubah) ---
 function formatAngka(num) {
     if (num === null || isNaN(num)) return "Error";
@@ -46,7 +75,6 @@ function jalankanMetodeSecant(f, x0, x1, e, N) {
         tabelBody.appendChild(baris);
 
         if (Math.abs(fx2) < e) {
-            // Ubah pesan hasil agar lebih jelas
             let bungaPersen = (x2 * 100).toFixed(4);
             hasilAkhir.innerHTML = `Konvergensi dicapai. <br> Akar (Suku Bunga) ≈ <b>${formatAngka(x2)}</b><br>
                                    Artinya, suku bunga bulanan adalah <b>${bungaPersen}%</b>`;
@@ -61,22 +89,27 @@ function jalankanMetodeSecant(f, x0, x1, e, N) {
     hasilAkhir.className = "gagal";
 }
 
-// --- EVENT LISTENER (INI YANG DIUBAH) ---
+// --- EVENT LISTENER (DIMODIFIKASI) ---
 document.getElementById("secantForm").addEventListener("submit", function (event) {
     event.preventDefault();
 
-    // 1. Ambil nilai parameter studi kasus
-    const pv = parseFloat(document.getElementById("pinjaman").value); // Jumlah Pinjaman
-    const p = parseFloat(document.getElementById("cicilan").value);   // Cicilan
-    const n = parseInt(document.getElementById("tenor").value);       // Tenor (bulan)
+    // 1. Ambil nilai parameter studi kasus (sebagai string)
+    const pv_string = document.getElementById("pinjaman").value;
+    const p_string = document.getElementById("cicilan").value;
 
-    // 2. Ambil nilai parameter Metode Secant
+    // 2. MODIFIKASI: Hapus titik ('.') sebelum parsing
+    const pv = parseFloat(pv_string.replace(/\./g, '')); // Hapus semua titik
+    const p = parseFloat(p_string.replace(/\./g, ''));   // Hapus semua titik
+
+    const n = parseInt(document.getElementById("tenor").value);
+
+    // 3. Ambil nilai parameter Metode Secant
     const x0 = parseFloat(document.getElementById("x0").value);
     const x1 = parseFloat(document.getElementById("x1").value);
     const e = parseFloat(document.getElementById("toleransi").value);
     const N = parseInt(document.getElementById("iterasi").value);
 
-    // 3. Validasi input
+    // 4. Validasi input
     if (isNaN(pv) || isNaN(p) || isNaN(n) || isNaN(x0) || isNaN(x1) || isNaN(e) || isNaN(N)) {
         alert("Harap isi semua field dengan angka yang valid.");
         return;
@@ -86,31 +119,24 @@ document.getElementById("secantForm").addEventListener("submit", function (event
         return;
     }
 
-    // 4. Buat fungsi f(x) secara dinamis
-    // Di sini, 'x' adalah suku bunga (r) yang kita cari.
-    // Rumus: f(x) = ( (x * PV) / (1 - (1+x)^-n) ) - P
+    // 5. Buat fungsi f(x) secara dinamis (Tidak berubah)
     const userFunction = function (x) {
-        // Cek jika x sangat dekat dengan 0
         if (Math.abs(x) < 1e-9) {
-            // Jika x=0, rumusnya menjadi P = PV/n
-            // f(0) = PV/n - P
             return (pv / n) - p;
         }
-
         const bagian_atas = x * pv;
         const bagian_bawah = 1 - Math.pow(1 + x, -n);
-
         return (bagian_atas / bagian_bawah) - p;
     };
 
-    // 5. Coba jalankan fungsi sekali untuk tes
+    // 6. Coba jalankan fungsi sekali untuk tes (Tidak berubah)
     try {
-        userFunction(x0); // Tes dengan tebakan awal
+        userFunction(x0);
     } catch (err) {
         alert(`Error saat menghitung fungsi: ${err.message}`);
         return;
     }
 
-    // 6. Panggil fungsi kalkulasi
+    // 7. Panggil fungsi kalkulasi (Tidak berubah)
     jalankanMetodeSecant(userFunction, x0, x1, e, N);
 });
